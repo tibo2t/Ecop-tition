@@ -55,7 +55,6 @@ class Messagerie(models.Model):
     message = models.CharField(max_length=256)
 
     class Meta:
-        unique_together = ('petition', 'user', 'date_heure')  # Clé primaire composite
-
+        unique_together = ('petition', 'user', 'date_heure') 
     def __str__(self):
         return f"Message de {self.user.pseudo} sur {self.petition.titre}"
