@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from app.views.auth_views import RegisterAPIView, LoginView
 from app.views.themes_views import CreateThemeAPIView, ListThemesAPIView, DeleteThemeAPIView
+from app.views.sign_views import SignPetitionAPIView, PetitionSignatureCountAPIView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,6 @@ urlpatterns = [
     path('api/themes/create', CreateThemeAPIView.as_view(), name='create_theme'),
     path('api/themes', ListThemesAPIView.as_view(), name='list_themes'),
     path('api/themes/delete/<int:theme_id>', DeleteThemeAPIView.as_view(), name='delete_theme'),
+    path("api/petitions/<int:petition_id>/sign", SignPetitionAPIView.as_view(), name="sign-petition"),
+    path('api/petitions/<int:petition_id>/sign_count', PetitionSignatureCountAPIView.as_view(), name='petition_signature_count'),
 ]
