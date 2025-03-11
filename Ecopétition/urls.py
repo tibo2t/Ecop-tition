@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from app.views.auth_views import RegisterAPIView, LoginView
 from app.views.themes_views import CreateThemeAPIView, ListThemesAPIView, DeleteThemeAPIView
-from app.views.messagerie_view import CreateMessagerieAPIView
+from app.views.messagerie_view import CreateMessagerieAPIView, ListMessageriesAPIView, DeleteMessagerieAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,7 @@ urlpatterns = [
     path('api/themes/create', CreateThemeAPIView.as_view(), name='create_theme'),
     path('api/themes', ListThemesAPIView.as_view(), name='list_themes'),
     path('api/themes/delete/<int:theme_id>', DeleteThemeAPIView.as_view(), name='delete_theme'),
-    path('api/messagerie/create', CreateMessagerieAPIView.as_view(), name='create_messagerie'),
+    path('api/messagerie', ListMessageriesAPIView.as_view(), name='list_messageries'), 
+    path('api/messagerie/create', CreateMessagerieAPIView.as_view(), name='create_messagerie'), 
+    path('api/messagerie/<int:messagerie_id>/delete', DeleteMessagerieAPIView.as_view(), name='delete_messagerie'),
 ]
