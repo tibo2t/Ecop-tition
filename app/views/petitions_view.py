@@ -18,9 +18,9 @@ class CreatePetitionAPIView(APIView):
         description = request.data.get("description")
         date_creation = datetime.now().date()
         date_cloture = request.data.get("date_cloture")
-        user_id = str(request.data.get("user_id"))
+        user_id = request.data.get("user_id")
         # theme_id = request.data.get("theme")
-
+        
         # Vérifier si la pétition existe déjà
         if Petition.objects.filter(titre=titre).exists():
             return Response({"error": "Cette pétition existe déjà"}, status=status.HTTP_400_BAD_REQUEST)
