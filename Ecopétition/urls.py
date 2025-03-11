@@ -18,6 +18,7 @@ from django.urls import path
 from app.views.auth_views import RegisterAPIView, LoginView
 from app.views.themes_views import CreateThemeAPIView, ListThemesAPIView, DeleteThemeAPIView
 from app.views.sign_views import SignPetitionAPIView, PetitionSignatureCountAPIView
+from app.views.messagerie_views import PetitionCommentsAPIView
 
 
 urlpatterns = [
@@ -29,4 +30,5 @@ urlpatterns = [
     path('api/themes/delete/<int:theme_id>', DeleteThemeAPIView.as_view(), name='delete_theme'),
     path("api/petitions/<int:petition_id>/sign", SignPetitionAPIView.as_view(), name="sign-petition"),
     path('api/petitions/<int:petition_id>/sign_count', PetitionSignatureCountAPIView.as_view(), name='petition_signature_count'),
+    path('api/petitions/<int:petition_id>/comments/', PetitionCommentsAPIView.as_view(), name='petition_comments'),
 ]

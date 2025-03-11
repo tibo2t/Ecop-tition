@@ -40,11 +40,9 @@ class SignerSerializer(serializers.ModelSerializer):
         model = Signer
         fields = '__all__'
 
-# Serializer pour le modèle Messagerie
 class MessagerieSerializer(serializers.ModelSerializer):
-    petition = PetitionSerializer(read_only=True)
-    user = UserSerializer(read_only=True)
+    user_pseudo = serializers.CharField(source='user.pseudo', read_only=True)
 
     class Meta:
         model = Messagerie
-        fields = '__all__'
+        fields = ['id', 'user_pseudo', 'message', 'date_heure']
