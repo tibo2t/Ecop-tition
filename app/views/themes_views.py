@@ -2,7 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from app.models import Theme
-from app.serializers import ThemeSerializerom rest_framework.permissions import IsAuthenticated
+from app.serializers import ThemeSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class CreateThemeAPIView(APIView):
     permission_classes = [IsAuthenticated]

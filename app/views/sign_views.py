@@ -23,3 +23,22 @@ class SignPetitionAPIView(APIView):
         Signer.objects.create(petition=petition, user=request.user)
         
         return Response({"message": "Pétition signée avec succès"}, status=status.HTTP_201_CREATED)
+
+class PetitionSignatureCountAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, petition_id):
+        try:
+            # Vérifier si la pétition existe
+            petition = Petition.objects.get(id=petition_id)
+        except Petition.DoesNotExist:
+            return Response({"error": "Pétition non trouvée"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Compter le nombre de signatures associées à cette pétition
+        signature_count = Signer.objects.filter(petition=petition).count()
+
+        return Response({
+            "petition_id": petition.id,
+            "titre": petition.titre,
+            "nombre_signatures": signature_count
+        }, status=status.HTTP_200_OK)
