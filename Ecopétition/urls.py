@@ -18,15 +18,22 @@ from django.urls import path
 from app.views.auth_views import RegisterAPIView, LoginView
 from app.views.themes_views import CreateThemeAPIView, ListThemesAPIView, DeleteThemeAPIView
 from app.views.sign_views import SignPetitionAPIView, PetitionSignatureCountAPIView
-
+from app.views.petitions_view import CreatePetitionAPIView, ListPetitionAPIView, PetitionAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/register', RegisterAPIView.as_view(), name='register'),
     path('api/user/login', LoginView.as_view(), name='login'),
+
     path('api/themes/create', CreateThemeAPIView.as_view(), name='create_theme'),
     path('api/themes', ListThemesAPIView.as_view(), name='list_themes'),
     path('api/themes/delete/<int:theme_id>', DeleteThemeAPIView.as_view(), name='delete_theme'),
+
+    path('api/petitions', ListPetitionAPIView.as_view(), name='list_petitions'),
+    path('api/petitions/<int:petition_id>', PetitionAPIView.as_view(), name='petition'),
+    path('api/petitions/create', CreatePetitionAPIView.as_view(), name='create_petition'),
+
     path("api/petitions/<int:petition_id>/sign", SignPetitionAPIView.as_view(), name="sign-petition"),
     path('api/petitions/<int:petition_id>/sign_count', PetitionSignatureCountAPIView.as_view(), name='petition_signature_count'),
+
 ]
