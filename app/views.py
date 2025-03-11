@@ -5,5 +5,5 @@ from rest_framework import status
 from .models import User, Role
 from .serializers import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from .views.auth_views import RegisterAPIView, LoginView
+
 
