@@ -62,5 +62,3 @@ jobs:
       - name: Run migrations
         run: python manage.py migrate
 
-      - name: Run backend ;) 
-        run: python3 manage.py runserver
