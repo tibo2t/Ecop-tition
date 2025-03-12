@@ -21,6 +21,22 @@ from app.views.messagerie_view import CreateMessagerieAPIView, ListMessageriesAP
 from app.views.sign_views import SignPetitionAPIView, PetitionSignatureCountAPIView
 from app.views.petitions_view import CreatePetitionAPIView, ListPetitionAPIView, PetitionAPIView, PaginatedListPetitionAPIView
 from app.views.messagerie_views import PetitionCommentsAPIView
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API Documentation",
+        default_version='v1',
+        description="Documentation interactive des endpoints",
+        terms_of_service="https://www.example.com/terms/",
+        contact=openapi.Contact(email="support@example.com"),
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,4 +56,8 @@ urlpatterns = [
     path('api/petitions/<int:petition_id>', PetitionAPIView.as_view(), name='petition'),
     path('api/petitions/create', CreatePetitionAPIView.as_view(), name='create_petition'),
     path('api/petition/list/paginated/', PaginatedListPetitionAPIView.as_view(), name='list_petition_paginated'),
+    
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
 ]
