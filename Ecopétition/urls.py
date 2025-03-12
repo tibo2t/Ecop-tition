@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views.auth_views import RegisterAPIView, LoginView
+from app.views.auth_views import RegisterAPIView, LoginView, VerifyTokenAPIView
 
 
 
@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/register', RegisterAPIView.as_view(), name='register'),
     path('api/user/login', LoginView.as_view(), name='login'),
+    path('api/user/verify', VerifyTokenAPIView.as_view(), name='verify-token'),
+
 ]
