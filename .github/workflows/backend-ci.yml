@@ -55,10 +55,6 @@ jobs:
             sleep 2
           done
 
-      - name: Create database
-        run: |
-          PGPASSWORD=test_password psql -h localhost -U test_user -d postgres -c "CREATE DATABASE test_db;"
-
       - name: Run migrations
         run: python manage.py migrate
 
