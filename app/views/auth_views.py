@@ -5,6 +5,8 @@ from rest_framework import status
 from ..models import User, Role
 from ..serializers import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -56,3 +58,15 @@ class LoginView(APIView):
             "access_token": str(refresh.access_token),
             "refresh_token": str(refresh)
         }, status=status.HTTP_200_OK)
+    
+class VerifyTokenAPIView(APIView):
+    # Utilisation de l'authentification JWT
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """
+        Vérifie si un token JWT est valide
+        """
+        # Si le token est valide, la requête passera ici
+        return Response({"message": "Token valide"}, status=status.HTTP_200_OK)
