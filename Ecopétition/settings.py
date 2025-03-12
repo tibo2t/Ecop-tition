@@ -31,6 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["app-20ce8ab4-2f87-49c9-a647-2a5fbcdfacbc.cleverapps.io",
                  'localhost',
                  '127.0.0.1',
+                 'localhost:3000',
                  ]
 
 
