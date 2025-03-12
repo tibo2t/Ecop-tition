@@ -28,14 +28,7 @@ SECRET_KEY = 'django-insecure-ci68t*nea-p4e8jfr+9-g(97tnc$9yz7l8vfojr!#qmnuibd2w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-ALLOWED_HOSTS = ["app-20ce8ab4-2f87-49c9-a647-2a5fbcdfacbc.cleverapps.io",
-                 'localhost',
-                 '127.0.0.1',
-                 'http://localhost:3000',
-                 ]
-
-CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ["app-20ce8ab4-2f87-49c9-a647-2a5fbcdfacbc.cleverapps.io",]
 
 
 # Application definition
@@ -49,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
     'app',
-    'corsheaders',
+    'drf_yasg',
 ]
 
 REST_FRAMEWORK = {
@@ -61,7 +54,6 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
