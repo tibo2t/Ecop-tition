@@ -48,6 +48,17 @@ jobs:
           echo "DB_HOST=localhost" >> $GITHUB_ENV
           echo "DB_PORT=5432" >> $GITHUB_ENV
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432 -U test_user; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+
+      - name: Create database
+        run: |
+          PGPASSWORD=test_password psql -h localhost -U test_user -d postgres -c "CREATE DATABASE test_db;"
+
       - name: Run migrations
         run: python manage.py migrate
 
