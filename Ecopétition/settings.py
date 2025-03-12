@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 import environ
 import os
 
@@ -27,7 +28,13 @@ SECRET_KEY = 'django-insecure-ci68t*nea-p4e8jfr+9-g(97tnc$9yz7l8vfojr!#qmnuibd2w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["app-20ce8ab4-2f87-49c9-a647-2a5fbcdfacbc.cleverapps.io",
+                 'localhost',
+                 '127.0.0.1',
+                 'http://localhost:3000',
+                 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -41,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
     'app',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -52,6 +60,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -116,6 +125,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'app.User'  # Remplace "app" par le nom exact de ton application Django
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',  # Utilise l'ID de ton modèle User
+    'USER_ID_CLAIM': 'user_id',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
