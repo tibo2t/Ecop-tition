@@ -27,7 +27,7 @@ def add_messagerie(apps, schema_editor):
     # Créer ou récupérer une pétition
     petition, _ = Petition.objects.get_or_create(
         titre='Tous pour les cailloux',
-        defaults={'description': 'Les pauvres, on leur marche dessus !', 'date_creation': '2025-03-11', 'date_cloture': '2025-03-26', 'theme_id': theme.id, 'user.id': user.id}  # ✅ Utilisation de `role.id`
+        defaults={'description': 'Les pauvres, on leur marche dessus !', 'date_creation': '2025-03-11', 'date_cloture': '2025-03-26', 'theme_id': theme.id, 'user': user}
     )
 
     # Ajouter un message dans la base de données
