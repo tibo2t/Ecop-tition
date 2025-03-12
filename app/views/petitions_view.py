@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from app.models import Petition
 from app.serializers import PetitionSerializer
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from datetime import datetime, timedelta
@@ -66,4 +68,12 @@ class ListPetitionByNameAPIView(APIView):
         serializer = PetitionSerializer(petitions, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class PetitionPagination(PageNumberPagination):
+    page_size = 12  # Nombre d'éléments par page
+    page_size_query_param = 'page_size'
+    max_page_size = 100
 
+class PaginatedListPetitionAPIView(ListAPIView):
+    queryset = Petition.objects.all().order_by('-date_creation')
+    serializer_class = PetitionSerializer
+    pagination_class = PetitionPagination
