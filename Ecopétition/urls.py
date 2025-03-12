@@ -55,8 +55,8 @@ urlpatterns = [
     path('api/petitions', ListPetitionAPIView.as_view(), name='list_petitions'),
     path('api/petitions/<int:petition_id>', PetitionAPIView.as_view(), name='petition'),
     path('api/petitions/create', CreatePetitionAPIView.as_view(), name='create_petition'),
-    path('api/petition/list/paginated/', PaginatedListPetitionAPIView.as_view(), name='list_petition_paginated'),
-    
+    path('api/petitions/list/paginated', PaginatedListPetitionAPIView.as_view(), name='paginated-petitions'),
+
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
