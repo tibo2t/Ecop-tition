@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ["app-20ce8ab4-2f87-49c9-a647-2a5fbcdfacbc.cleverapps.io",
                  'http://localhost:3000',
                  ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 # Application definition
 
