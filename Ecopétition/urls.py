@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from app.views.auth_views import RegisterAPIView, LoginView
 from app.views.themes_views import CreateThemeAPIView, ListThemesAPIView, DeleteThemeAPIView
+from app.views.messagerie_view import CreateMessagerieAPIView, ListMessageriesAPIView, DeleteMessagerieAPIView
 from app.views.sign_views import SignPetitionAPIView, PetitionSignatureCountAPIView
-from app.views.petitions_view import CreatePetitionAPIView, ListPetitionAPIView, PetitionAPIView
+from app.views.petitions_view import CreatePetitionAPIView, ListPetitionAPIView, PetitionAPIView, PaginatedListPetitionAPIView
+from app.views.messagerie_views import PetitionCommentsAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,12 +30,14 @@ urlpatterns = [
     path('api/themes/create', CreateThemeAPIView.as_view(), name='create_theme'),
     path('api/themes', ListThemesAPIView.as_view(), name='list_themes'),
     path('api/themes/delete/<int:theme_id>', DeleteThemeAPIView.as_view(), name='delete_theme'),
-
+    path('api/messagerie', ListMessageriesAPIView.as_view(), name='list_messageries'), 
+    path('api/messagerie/create', CreateMessagerieAPIView.as_view(), name='create_messagerie'), 
+    path('api/messagerie/<int:messagerie_id>/delete', DeleteMessagerieAPIView.as_view(), name='delete_messagerie'),
+    path("api/petitions/<int:petition_id>/sign", SignPetitionAPIView.as_view(), name="sign-petition"),
+    path('api/petitions/<int:petition_id>/sign_count', PetitionSignatureCountAPIView.as_view(), name='petition_signature_count'),
+    path('api/petitions/<int:petition_id>/comments/', PetitionCommentsAPIView.as_view(), name='petition_comments'),
     path('api/petitions', ListPetitionAPIView.as_view(), name='list_petitions'),
     path('api/petitions/<int:petition_id>', PetitionAPIView.as_view(), name='petition'),
     path('api/petitions/create', CreatePetitionAPIView.as_view(), name='create_petition'),
-
-    path("api/petitions/<int:petition_id>/sign", SignPetitionAPIView.as_view(), name="sign-petition"),
-    path('api/petitions/<int:petition_id>/sign_count', PetitionSignatureCountAPIView.as_view(), name='petition_signature_count'),
-
+    path('api/petition/list/paginated/', PaginatedListPetitionAPIView.as_view(), name='list_petition_paginated'),
 ]
