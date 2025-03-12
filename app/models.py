@@ -51,6 +51,7 @@ class Theme(models.Model):
 class Petition(models.Model):
     titre = models.CharField(max_length=256)
     description = models.TextField(max_length=1024)
+    image_url = models.TextField(max_length=1024, null=True)
     date_creation = models.DateField()
     date_cloture = models.DateField()
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
