@@ -109,17 +109,12 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test  # Le déploiement se fait seulement après que `test` soit passé avec succès
-    permissions:
-      contents: write  # Donne l'accès pour manipuler les fichiers
-      pull-requests: write  # Donne l'accès aux PRs pour pouvoir les fusionner
+    needs: test  # Déploiement seulement après `test`
 
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Permet d'avoir tout l'historique pour le merge
+        uses: actions/checkout@v4
 
       - name: Configure Git
         run: |
