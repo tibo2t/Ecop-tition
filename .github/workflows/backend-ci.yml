@@ -117,7 +117,7 @@ jobs:
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Permet d'avoir tout l'historique pour le merge
 
