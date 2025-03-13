@@ -3,7 +3,9 @@ from django.db import migrations
 import json
 from datetime import datetime
 
-with open(r'app\migrations\all_petitions.json', encoding='utf-8') as f:
+file_path = os.path.join(os.path.dirname(__file__), "all_petitions.json")
+
+with open(file_path, encoding="utf-8") as f:
     DATA = json.load(f)
 
 def add_petitions_json(apps, schema_editor):
