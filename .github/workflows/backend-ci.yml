@@ -112,19 +112,33 @@ jobs:
     needs: test  # Déploiement seulement après `test`
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Permet d'avoir tout l'historique pour merge
 
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Auto-merge Pull Request
-        uses: peter-evans/merge-pull-request@v3
+      - name: Check if PR is from Développement to master
+        id: check_pr
+        run: |
+          if [[ "${GITHUB_HEAD_REF}" == "Développement" && "${GITHUB_BASE_REF}" == "master" ]]; then
+            echo "Valid PR from Développement to master"
+          else
+            echo "Invalid PR source and target branches"
+            exit 1  # Cela arrête le job si ce n'est pas une PR de Développement vers master
+          fi
+
+      - name: Add automerge label
+        uses: github-actions/add-label@latest
         with:
           token: ${{ secrets.GH_PAT }}
-          merge-method: squash
+          labels: 'automerge'
+
+      - name: Auto-merge Pull Request
+        uses: pascalgn/automerge-action@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
