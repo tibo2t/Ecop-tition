@@ -128,14 +128,15 @@ jobs:
           sudo apt update
           sudo apt install -y gh
 
-      - name: Fusionner Developpement dans master
+      - name: Créer une Pull Request de Developpement vers master
         run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git checkout master
-          git pull origin master
-          git merge --no-ff Developpement -m "Auto-merge Developpement into master"
-          git push origin master
+          gh pr create --base master --head Developpement --title "Auto-merge Developpement into master" --body "Cette PR fusionne automatiquement Developpement dans master"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          
+
+      - name: Fusionner la PR automatiquement
+        run: |
+          gh pr merge --merge --repo ${{ github.repository }} --auto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
