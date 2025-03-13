@@ -38,16 +38,17 @@ def test_create_petition():
         mail="alice@example.com",  # Champ requis pour ton modèle User
         password="alicepassword",  # Mot de passe requis
         role=role  # Associer un rôle à l'utilisateur
-    )   
+    )
 
-    # Vérifier si la pétition a bien été créée (par exemple)
+    # Vérifier si la pétition a bien été créée
     assert petition.titre == "Test Petition du futur"
     assert petition.user == user
 
-    client.login(username=signer_user.pseudo, password=signer_user.password)
+    # Login de signer_user avec le bon mot de passe
+    client.login(username=signer_user.pseudo, password="alicepassword")
 
     # Signer la pétition en envoyant une requête POST à l'API
-    url = reverse('sign-petition', kwargs={'petition_id': petition.id})  # Remplacer 'sign_petition' par le nom correct de l'URL de ta vue
+    url = reverse('sign-petition', kwargs={'petition_id': petition.id})
     response = client.post(url)
 
     # Vérifier la réponse de la signature
