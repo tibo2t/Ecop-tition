@@ -133,14 +133,15 @@ jobs:
           sudo apt install -y gh
 
       - name: Créer une Pull Request de Developpement vers master
+        id: create_pr
         run: |
           gh pr create --base master --head Developpement --title "Auto-merge Developpement into master" --body "Cette PR fusionne automatiquement Developpement dans master"
+          echo "PR_NUMBER=$(gh pr list --base master --head Developpement --state open --json number --jq '.[0].number')" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Fusionner la PR automatiquement
         run: |
-          gh pr merge --merge --repo ${{ github.repository }} --auto
+          gh pr merge $PR_NUMBER --merge --repo ${{ github.repository }} --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
