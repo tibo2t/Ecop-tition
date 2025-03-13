@@ -77,6 +77,10 @@ class Messagerie(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_heure = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=256)
+    toxicite = models.FloatField(default=0.0)
+    insulte = models.FloatField(default=0.0)
+    haine = models.FloatField(default=0.0)
+    menace = models.FloatField(default=0.0)
 
     class Meta:
         unique_together = ('petition', 'user', 'date_heure') 
