@@ -126,13 +126,13 @@ jobs:
           git config --global user.email "actions@github.com"
 
       - name: Add automerge label
-        uses: github-actions/add-label@v1
+        uses: github-actions/add-label@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           labels: 'automerge'
 
       - name: Auto-merge Pull Request
-        uses: pascalgn/automerge-action@v0.16.4
+        uses: pascalgn/automerge-action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
