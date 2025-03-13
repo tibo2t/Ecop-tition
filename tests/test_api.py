@@ -17,16 +17,16 @@ def test_create_petition():
 
     # Créer un utilisateur fictif pour l'API avec les champs requis
     user = User.objects.create_user(
-        pseudo="testuser",  # Champ requis pour ton modèle User
-        mail="testuser@example.com",  # Champ requis pour ton modèle User
+        pseudo="Valentin",  # Champ requis pour ton modèle User
+        mail="Valtnin@example.com",  # Champ requis pour ton modèle User
         password="testpassword",  # Mot de passe requis
         role=role  # Associer un rôle à l'utilisateur
     )
 
     # Créer une pétition ou effectuer d'autres actions selon tes besoins
     petition = Petition.objects.create(
-        titre="Test Petition",
-        description="Description de la pétition",
+        titre="Test Petition du futur",
+        description="Description de la pétition du futur",
         date_creation="2025-03-13",
         date_cloture="2025-04-13",
         theme=Theme.objects.create(titre="Environnement"),
@@ -34,5 +34,5 @@ def test_create_petition():
     )
 
     # Vérifier si la pétition a bien été créée (par exemple)
-    assert petition.titre == "Test Petition"
+    assert petition.titre == "Test Petition du futur"
     assert petition.user == user
