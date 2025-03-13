@@ -25,7 +25,7 @@ class SignPetitionAPIView(APIView):
         return Response({"message": "Pétition signée avec succès"}, status=status.HTTP_201_CREATED)
 
 class PetitionSignatureCountAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request, petition_id):
         try:
