@@ -44,8 +44,16 @@ def test_create_petition():
     assert petition.titre == "Test Petition du futur"
     assert petition.user == user
 
-    # Login de signer_user avec le bon mot de passe
-    client.login(username=signer_user.pseudo, password="alicepassword")
+    # Se connecter en tant que signer_user pour obtenir un token JWT
+    login_url = reverse('login')  # L'URL de login de ton API
+    response = client.post(login_url, {'username': signer_user.pseudo, 'password': 'alicepassword'})
+    assert response.status_code == 200  # Vérifier que la connexion est réussie
+    
+    # Récupérer le token JWT
+    token = response.data['access_token']  # Si ton API retourne un champ 'access' pour le token
+    
+    # Ajouter le token dans les en-têtes pour l'authentification
+    client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
 
     # Signer la pétition en envoyant une requête POST à l'API
     url = reverse('sign-petition', kwargs={'petition_id': petition.id})
