@@ -28,9 +28,10 @@ def add_petitions_json(apps, schema_editor):
     )
 
     # Récupérer un thème (ou en créer un s'il n'existe pas)
-    theme, _ = Theme.objects.get_or_create(
-        titre='Environnement'
-    )
+    theme = Theme.objects.filter(titre='Environnement').first()
+
+    if not theme:
+        theme = Theme.objects.create(titre='Environnement')
 
     for data_petition in DATA:
         Petition.objects.create(
