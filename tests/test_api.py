@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
-from app.models import Petition, User
+from app.models import Role, User, Petition, Theme
 import os
 import django
 
