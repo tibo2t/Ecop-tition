@@ -126,5 +126,5 @@ jobs:
         run: |
           git checkout master
           git pull origin master
-          git merge --no-ff Développement -m "Merge automatique de Développement vers master"
+          git merge --no-ff Developpement -m "Merge automatique de Développement vers master"
           git push origin master
