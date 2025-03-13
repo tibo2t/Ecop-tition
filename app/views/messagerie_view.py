@@ -24,7 +24,11 @@ class CreateMessagerieAPIView(APIView):
         messagerie = Messagerie.objects.create(
             petition=petition,
             user=request.user,  # Django récupère l'utilisateur connecté
-            message=message
+            message=message,
+            toxicite=0.0,
+            insulte=0.0,
+            haine=0.0,
+            menace=0.0
         )
         return Response({"message": "Message créé avec succès", "messagerie": MessagerieSerializer(messagerie).data}, status=status.HTTP_201_CREATED)
 
