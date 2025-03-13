@@ -99,11 +99,11 @@ environ.Env.read_env()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
+        'NAME': env('DB_NAME', default='test_db'),  # Si DB_NAME n'est pas défini, utilise 'test_db'
+        'USER': env('DB_USER', default='test_user'),  # Si DB_USER n'est pas défini, utilise 'test_user'
+        'PASSWORD': env('DB_PASSWORD', default='test_password'),  # Si DB_PASSWORD n'est pas défini, utilise 'test_password'
+        'HOST': env('DB_HOST', default='localhost'),  # Si DB_HOST n'est pas défini, utilise 'localhost'
+        'PORT': env('DB_PORT', default='5432'),  # Si DB_PORT n'est pas défini, utilise '5432'
     }
 }
 
@@ -155,6 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+APPEND_SLASH = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

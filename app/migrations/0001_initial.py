@@ -42,6 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('titre', models.CharField(max_length=256)),
                 ('description', models.TextField(max_length=1024)),
+                ('image_url', models.TextField(max_length=1024, null=True)),
                 ('date_creation', models.DateField()),
                 ('date_cloture', models.DateField()),
                 ('theme', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.theme')),
