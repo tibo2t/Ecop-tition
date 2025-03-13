@@ -50,7 +50,7 @@ urlpatterns = [
     path('api/user/verify', VerifyTokenAPIView.as_view(), name='verify-token'),
 
     # User
-    path('api/user/check_if_has_sign_petition/<int:user_id>',CheckIfUserHasSignOnePetitionAPIView.as_view(), name='check_if_has_sign_petition'),
+    path('api/user/check_if_has_sign_petition/<int:petition_id>',CheckIfUserHasSignOnePetitionAPIView.as_view(), name='check_if_has_sign_petition'),
 
     # Thèmes
     path('api/themes/create', CreateThemeAPIView.as_view(), name='create_theme'),
