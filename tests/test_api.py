@@ -12,11 +12,15 @@ django.setup()
 def test_create_petition():
     client = APIClient()
 
+    # Créer un rôle fictif
+    role = Role.objects.create(nom_role="Utilisateur")
+
     # Créer un utilisateur fictif pour l'API avec les champs requis
     user = User.objects.create_user(
         pseudo="testuser",  # Champ requis pour ton modèle User
         mail="testuser@example.com",  # Champ requis pour ton modèle User
         password="testpassword",  # Mot de passe requis
+        role=role  # Associer un rôle à l'utilisateur
     )
 
     # Créer une pétition ou effectuer d'autres actions selon tes besoins
