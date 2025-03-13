@@ -115,10 +115,6 @@ jobs:
       pull-requests: write  # Donne l'accès aux PRs pour pouvoir les fusionner
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Permet d'avoir tout l'historique pour effectuer un merge
 
       - name: Configure Git
         run: |
