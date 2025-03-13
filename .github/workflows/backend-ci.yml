@@ -140,10 +140,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
+      - name: Activer l'auto-merge pour la PR
+        run: |
+          gh pr merge $PR_NUMBER --merge --repo ${{ github.repository }} --auto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
       - name: Fusionner la PR automatiquement
         run: |
           gh pr merge $PR_NUMBER --merge --repo ${{ github.repository }} --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-          
+
