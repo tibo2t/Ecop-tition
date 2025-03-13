@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
-from app.models import Role, User, Petition, Theme
+from app.models import Role, User, Petition, Theme, Signer
 import os
 import django
 
@@ -36,3 +36,21 @@ def test_create_petition():
     # Vérifier si la pétition a bien été créée (par exemple)
     assert petition.titre == "Test Petition du futur"
     assert petition.user == user
+
+    client.login(username=user.pseudo, password="testpassword")
+
+    # Signer la pétition en envoyant une requête POST à l'API
+    url = reverse('sign_petition', kwargs={'petition_id': petition.id})  # Remplacer 'sign_petition' par le nom correct de l'URL de ta vue
+    response = client.post(url)
+
+    # Vérifier la réponse de la signature
+    assert response.status_code == 201
+    assert response.data['message'] == "Pétition signée avec succès"
+    
+    # Vérifier que la signature a été ajoutée dans la base de données
+    assert Signer.objects.filter(petition=petition, user=signer_user).exists()
+
+    # Vérifier que l'utilisateur a bien signé la pétition
+    signature = Signer.objects.get(petition=petition, user=signer_user)
+    assert signature.petition == petition
+    assert signature.user == signer_user
