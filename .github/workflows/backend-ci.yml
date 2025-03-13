@@ -122,12 +122,9 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Merge Développement into master
-        run: |
-          git checkout master
-          git pull origin master
-          git merge --no-ff origin/Developpement -m "Merge automatique de Développement vers master"
-          git push origin master
-          git merge --no-ff origin/Developpement -m "Merge automatique de Developpement vers master"
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/tibo2t/Ecop-tition.git master
+      - name: Auto-merge Pull Request
+        uses: peter-evans/merge-pull-request@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+          merge-method: squash
 
