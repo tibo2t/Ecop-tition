@@ -47,7 +47,7 @@ def test_create_petition():
     client.login(username=signer_user.pseudo, password=signer_user.password)
 
     # Signer la pétition en envoyant une requête POST à l'API
-    url = reverse('sign_petition', kwargs={'petition_id': petition.id})  # Remplacer 'sign_petition' par le nom correct de l'URL de ta vue
+    url = reverse('SignPetitionAPIView', kwargs={'petition_id': petition.id})  # Remplacer 'sign_petition' par le nom correct de l'URL de ta vue
     response = client.post(url)
 
     # Vérifier la réponse de la signature
