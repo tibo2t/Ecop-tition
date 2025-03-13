@@ -109,13 +109,13 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test  # Déploiement seulement après `test`
+    needs: test  # Le déploiement se fait seulement après que `test` soit passé avec succès
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Permet d'avoir tout l'historique pour merge
+          fetch-depth: 0  # Permet d'avoir tout l'historique pour effectuer un merge
 
       - name: Configure Git
         run: |
@@ -125,6 +125,7 @@ jobs:
       - name: Auto-merge Pull Request
         uses: peter-evans/merge-pull-request@v3
         with:
-          token: ${{ secrets.GH_PAT }}
-          merge-method: squash
+          token: ${{ secrets.GH_PAT }}  # Utilisation de ton token personnel pour autoriser l'action
+          merge-method: squash  # Choisis la méthode de fusion, ici `squash`
+          pull-request-number: ${{ github.event.pull_request.number }}  # Utiliser l'ID de PR du contexte actuel
 
