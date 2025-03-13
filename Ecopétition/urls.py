@@ -61,7 +61,7 @@ urlpatterns = [
     path('api/messagerie', ListMessageriesAPIView.as_view(), name='list_messageries'), 
     path('api/messagerie/create', CreateMessagerieAPIView.as_view(), name='create_messagerie'), 
     path('api/messagerie/<int:messagerie_id>/delete', DeleteMessagerieAPIView.as_view(), name='delete_messagerie'),
-    path('api/petitions/<int:petition_id>/comments/', PetitionCommentsAPIView.as_view(), name='petition_comments'),
+    path('api/petitions/<int:petition_id>/comments', PetitionCommentsAPIView.as_view(), name='petition_comments'),
 
     # Pétitions
     path('api/petitions', ListPetitionAPIView.as_view(), name='list_petitions'),
