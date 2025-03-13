@@ -59,6 +59,9 @@ jobs:
         run: |
           PGPASSWORD=${{ secrets.DB_PASSWORD }} psql -h localhost -U ${{ secrets.DB_USER }} -d postgres -c "CREATE DATABASE ${{ secrets.DB_NAME }};"
 
+      - name: Set DJANGO_SETTINGS_MODULE environment variable
+        run: echo "DJANGO_SETTINGS_MODULE=Ecopétition.settings" >> $GITHUB_ENV
+
       - name: Run migrations
         run: python manage.py migrate
 
