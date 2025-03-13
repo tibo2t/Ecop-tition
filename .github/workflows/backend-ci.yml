@@ -1,12 +1,9 @@
 name: Backend CI
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
-      - master
+      - Developpement  # Déclencher les tests sur les PR vers Developpement
 
 jobs:
   migrate:
@@ -107,20 +104,52 @@ jobs:
       - name: Run tests
         run: pytest
 
-  auto-merge:
+  auto-merge-develop:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event.pull_request.head.ref == 'Developpement'
+    if: github.event.pull_request.head.ref != 'master'  # Empêche le merge automatique depuis master
     steps:
       - name: Installer GitHub CLI
         run: |
           sudo apt update
           sudo apt install -y gh
 
-      - name: Fusionner la PR automatiquement
+      - name: Fusionner la PR automatiquement dans Developpement
         run: gh pr merge --merge --repo ${{ github.repository }} ${{ github.event.pull_request.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
+  auto-merge-master:
+    needs: auto-merge-develop
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout du repository
+        uses: actions/checkout@v4
+
+      - name: Installer GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install -y gh
+
+      - name: Créer une Pull Request de Developpement vers master
+        id: create_pr
+        run: |
+          gh pr create --base master --head Developpement --title "Auto-merge Developpement into master" --body "Cette PR fusionne automatiquement Developpement dans master"
+          echo "PR_NUMBER=$(gh pr list --base master --head Developpement --state open --json number --jq '.[0].number')" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Activer l'auto-merge pour la PR
+        run: |
+          gh pr merge $PR_NUMBER --merge --repo ${{ github.repository }} --auto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Fusionner la PR automatiquement
+        run: |
+          gh pr merge $PR_NUMBER --merge --repo ${{ github.repository }} --auto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
 
