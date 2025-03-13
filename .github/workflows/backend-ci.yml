@@ -3,10 +3,10 @@ name: Backend CI
 on:
   push:
     branches:
-      - Développement
+      - master
   pull_request:
     branches:
-      - Développement
+      - master
 
 jobs:
   migrate:
