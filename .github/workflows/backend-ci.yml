@@ -124,7 +124,7 @@ jobs:
       - name: Check if PR is from Développement to master
         id: check_pr
         run: |
-          if [[ "${GITHUB_HEAD_REF}" == "Développement" && "${GITHUB_BASE_REF}" == "master" ]]; then
+          if [[ "${GITHUB_HEAD_REF}" == "Developpement" && "${GITHUB_BASE_REF}" == "master" ]]; then
             echo "Valid PR from Développement to master"
           else
             echo "Invalid PR source and target branches"
