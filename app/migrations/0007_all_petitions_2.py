@@ -2,6 +2,7 @@ from django.db import migrations
 
 import json
 from datetime import datetime
+import os
 
 file_path = os.path.join(os.path.dirname(__file__), "all_petitions.json")
 
