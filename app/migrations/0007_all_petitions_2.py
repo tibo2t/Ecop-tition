@@ -2,8 +2,11 @@ from django.db import migrations
 
 import json
 from datetime import datetime
+import os
 
-with open(r'app\migrations\all_petitions.json', encoding='utf-8') as f:
+file_path = os.path.join(os.path.dirname(__file__), "all_petitions.json")
+
+with open(file_path, encoding="utf-8") as f:
     DATA = json.load(f)
 
 def add_petitions_json(apps, schema_editor):
@@ -25,9 +28,10 @@ def add_petitions_json(apps, schema_editor):
     )
 
     # Récupérer un thème (ou en créer un s'il n'existe pas)
-    theme, _ = Theme.objects.get_or_create(
-        titre='Environnement'
-    )
+    theme = Theme.objects.filter(titre='Environnement').first()
+
+    if not theme:
+        theme = Theme.objects.create(titre='Environnement')
 
     for data_petition in DATA:
         Petition.objects.create(
@@ -48,7 +52,7 @@ def remove_all_petitions_json(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0011_petition_image_url'),
+        ('app', '0002_add_roles'),
     ]
 
     operations = [

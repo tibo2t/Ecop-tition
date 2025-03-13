@@ -60,6 +60,13 @@ class PetitionAPIView(APIView):
         petition = get_object_or_404(Petition, id=petition_id)
         serializer = PetitionSerializer(petition)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class ListPetitionByNameAPIView(APIView):
+    def get(self, request, petition_name):
+        petitions = Petition.objects.filter(titre__icontains=petition_name)[:15]
+        serializer = PetitionSerializer(petitions, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PetitionPagination(PageNumberPagination):
     page_size = 12  # Nombre d'éléments par page
