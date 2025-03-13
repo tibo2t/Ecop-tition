@@ -28,21 +28,35 @@ def add_petitions_json(apps, schema_editor):
     )
 
     # Récupérer un thème (ou en créer un s'il n'existe pas)
+
     theme = Theme.objects.filter(titre='Environnement').first()
 
     if not theme:
         theme = Theme.objects.create(titre='Environnement')
+    petitions_dict = {}
 
     for data_petition in DATA:
-        Petition.objects.create(
-            titre=data_petition['titre_petition'],
-            description=data_petition['petite_description'],
-            image_url=data_petition['image_url'],
-            date_creation=data_petition['date_debut'],
-            date_cloture=data_petition['date_fin'],
-            theme=theme,
-            user=user
-        )
+        titre = data_petition['titre_petition']
+        
+        if titre not in petitions_dict:
+            petitions_dict[titre] = {
+                "titre": titre,
+                "description": data_petition['petite_description'],
+                "image_url": data_petition['image_url'],
+                "date_creation": data_petition.get('date_debut', datetime.now().date()),
+                "date_cloture": data_petition.get('date_fin', None),
+                "theme": theme,
+                "user": user
+            }
+
+    # Création des objets Petition
+    petitions_to_create = [
+        Petition(**petition_data) for petition_data in petitions_dict.values()
+    ]
+
+    # Insertion en une seule requête SQL
+    Petition.objects.bulk_create(petitions_to_create)
+
 
 def remove_all_petitions_json(apps, schema_editor):
     Petition = apps.get_model('app', 'Petition')
