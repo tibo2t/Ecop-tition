@@ -21,6 +21,7 @@ from app.views.messagerie_view import CreateMessagerieAPIView, ListMessageriesAP
 from app.views.sign_views import SignPetitionAPIView, PetitionSignatureCountAPIView
 from app.views.petitions_view import CreatePetitionAPIView, ListPetitionAPIView, PetitionAPIView, PaginatedListPetitionAPIView, ListPetitionByNameAPIView
 from app.views.messagerie_views import PetitionCommentsAPIView
+from app.views.user_view import CheckIfUserHasSignOnePetitionAPIView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
@@ -47,6 +48,9 @@ urlpatterns = [
     path('api/user/register', RegisterAPIView.as_view(), name='register'),
     path('api/user/login', LoginView.as_view(), name='login'),
     path('api/user/verify', VerifyTokenAPIView.as_view(), name='verify-token'),
+
+    # User
+    path('api/user/check_if_has_sign_petition/<int:user_id>',CheckIfUserHasSignOnePetitionAPIView.as_view(), name='check_if_has_sign_petition'),
 
     # Thèmes
     path('api/themes/create', CreateThemeAPIView.as_view(), name='create_theme'),
