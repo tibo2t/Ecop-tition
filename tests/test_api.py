@@ -2,6 +2,11 @@ import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
 from app.models import Petition, User
+import os
+import django
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'Ecopétition.settings'
+django.setup()
 
 @pytest.mark.django_db
 def test_create_petition():
