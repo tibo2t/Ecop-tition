@@ -107,5 +107,20 @@ jobs:
       - name: Run tests
         run: pytest
 
+  auto-merge:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.head.ref == 'Developpement'
+    steps:
+      - name: Installer GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install -y gh
+
+      - name: Fusionner la PR automatiquement
+        run: gh pr merge --merge --repo ${{ github.repository }} ${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
 
 
