@@ -123,7 +123,7 @@ jobs:
           git config --global user.email "actions@github.com"
 
       - name: Auto-merge Pull Request
-        uses: peter-evans/merge-pull-request@v3
+        uses: peter-evans/merge-pull-request@v4  # Utilisation de la dernière version stable v4
         with:
           token: ${{ secrets.GH_PAT }}  # Utilisation de ton token personnel pour autoriser l'action
           merge-method: squash  # Choisis la méthode de fusion, ici `squash`
