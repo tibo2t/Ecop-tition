@@ -1,0 +1,3 @@
+[
+  "0 * * * * $ROOT/clevercloud/analyze_comments.sh"
+]
